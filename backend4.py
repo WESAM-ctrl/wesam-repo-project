@@ -334,3 +334,4 @@ async def rag_chat(request: RAGChatRequest):
     return StreamingResponse(stream_response(), media_type="text/plain")
 # CI/CD test
 # trigger test
+# test trigger
