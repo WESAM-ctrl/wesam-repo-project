@@ -3,22 +3,21 @@ name: Deploy to Azure VM
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: SSH into VM and run deployment script
-        uses: appleboy/ssh-action@v1.0.0
+      - name: Run deploy script on VM
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.VM_HOST }}
+          host: 172.200.213.41
           username: azureuser
-          key: ${{ secrets.VM_SSH_KEY }}
+          key: ${{ secrets.AZURE_VM_SSH_KEY }}
           script: |
-            bash /home/azureuser/deployment-script.sh
+            cd SDA-Projects
+            git pull origin main
+            ./deploy.sh
 
